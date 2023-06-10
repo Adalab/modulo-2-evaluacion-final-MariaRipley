@@ -1,10 +1,14 @@
 'use strict';
 
 const ulElement = document.querySelector('.js_character_list');
+const ulFavourites = document.querySelector('.js_character_fav');
 
 const url = 'https://api.disneyapi.dev/character';
 
 let listCharactersApi = [];
+let listCharacterFavourites = [];
+
+//Petición al servidor
 
 fetch(url)
   .then((response) => response.json())
@@ -53,8 +57,29 @@ function renderCharacter(character) {
   return html;
 }
 
+//Función favoritos
+
 function handleClick(event) {
-  const id = event.currentTarget.id;
+  //Al dar click en cualquier parte de la tarjeta: 
+  const id = event.currentTarget._id;
+  const selectedCharacter = listCharactersApi.find((item) => item.id === id);
+  /*Para que no añada varias veces el mismo personaje a favoritos y lo quite si ya está añadido y la usuaria lo vuelve a clickar: */
+  console.log(selectedCharacter);
+  const indexCharacter = listCharacterFavourites.findIndex((item) =>item._id === id);
+  if(indexCharacter === -1) {
+    listCharacterFavourites.push(selectedCharacter);
+  } else {
+    listCharacterFavourites.splice(indexCharacter, 1);
+  }
+
+  renderFavouritesList();
   console.log(id);
+}
+
+function renderFavouritesList() {
+  ulFavourites.innerHTML = '';
+  for(const fav of listCharacterFavourites) {
+    ulFavourites.innerHTML += renderCharacter(fav);
+  }
 }
 
