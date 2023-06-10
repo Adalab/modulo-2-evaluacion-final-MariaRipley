@@ -1,1 +1,10 @@
-
+.footer {
+    background-color: blue;
+    color: white;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
