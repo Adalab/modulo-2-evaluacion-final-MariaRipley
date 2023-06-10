@@ -49,7 +49,7 @@ function renderCharacter(character) {
 
   if (!valueImg) {
     const blankImg = 'https://via.placeholder.com/210x295/ffffff/555555/?text=Disney';
-    html = `<li id="${valueId}" class=""card js_li_card""><div class="">
+    html = `<li id="${valueId}" class="card js_li_card"><div class="">
             <img src="${blankImg}" alt="" class="card__img" />
             <p class="card__text">${valueName}</p>
             </div></li>`;
@@ -60,12 +60,13 @@ function renderCharacter(character) {
 //Función favoritos
 
 function handleClick(event) {
+    debugger;
   //Al dar click en cualquier parte de la tarjeta: 
-  const id = event.currentTarget._id;
-  const selectedCharacter = listCharactersApi.find((item) => item.id === id);
+  const id = parseInt(event.currentTarget.id);
+  const selectedCharacter = listCharactersApi.find((item) => item._id === id);
   /*Para que no añada varias veces el mismo personaje a favoritos y lo quite si ya está añadido y la usuaria lo vuelve a clickar: */
   console.log(selectedCharacter);
-  const indexCharacter = listCharacterFavourites.findIndex((item) =>item._id === id);
+  const indexCharacter = listCharacterFavourites.findIndex((item) =>item.id === id);
   if(indexCharacter === -1) {
     listCharacterFavourites.push(selectedCharacter);
   } else {
