@@ -3,7 +3,7 @@
 const ulElement = document.querySelector('.js_character_list');
 const ulFavourites = document.querySelector('.js_character_fav');
 
-const url = 'https://api.disneyapi.dev/character';
+const url = 'https://dev.adalab.es/api/disney?pageSize=15';
 
 let listCharactersApi = [];
 let listCharacterFavourites = [];

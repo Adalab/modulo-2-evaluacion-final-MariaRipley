@@ -1,9 +1,22 @@
 .hero {
-    background-image: url("/assets/images/disney-castle-bg.jpg");
-    width: 100vw;
-    height: 20%;
+    background-image: url("/assets/images/disney-castle-banner.png");
+    height: 40%;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    &__form {
+        display: flex;
+        position: absolute;
+        top: 38.5%;
+        transform: scale(1.3);
+        &--input {
+            font-family: 'Montserrat Alternates', sans-serif;
+        }
+    }
+    &__form--btn {
+        font-family: 'Montserrat Alternates', sans-serif;
+    }
 }
