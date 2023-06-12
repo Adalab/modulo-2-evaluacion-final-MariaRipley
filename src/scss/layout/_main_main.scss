@@ -102,6 +102,12 @@
     margin: 5px;
 }
 
+.deleteX {
+    display: flex;
+    align-self: flex-end;
+    color: red;
+}
+
 .hidden {
     display: none;
 }

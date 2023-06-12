@@ -56,51 +56,54 @@ function addEventCharacter() {
 //Función para generar una tarjeta
 
 function renderCharacter(character, isFavourite) {
-  let valueImg = character.imageUrl;
-  const valueName = character.name;
-  const valueId = character._id;
-  const blankImg =
-    'https://via.placeholder.com/210x295/ffffff/555555/?text=Disney';
+  /*Si entra a null que no se cargue. Condición: si entra a null que no se cargue porque da error*/
+  if(character!==null) {
+    let valueImg = character.imageUrl;
+    const valueName = character.name;
+    const valueId = character._id;
+    const blankImg = 'https://via.placeholder.com/210x295/ffffff/555555/?text=Disney';
+    //Si no tiene valor de imagen colocará una por defecto:
+    if (!valueImg) {
+      valueImg = blankImg;
+    }
 
-  //Si no tiene valor de imagen colocará una por defecto:
-  if (!valueImg) {
-    valueImg = blankImg;
-  }
-
-  let html = '';
-  let content = `<div class="cardDiv">
+    let html = '';
+    let content = `<div class="cardDiv">
          <img src="${valueImg}" alt="" class="card__img" />
          <p class="card__text">${valueName}</p>
          </div>`;
-  
-  let li = `<li id="${valueId}" class="card js_li_card">${content}</li>`;
-  let liFav = `<li id="${valueId}" class="card js_li_card favourite">${content}</li>`;
+    let contentFav = `<div class="cardDiv"><a  class="deleteX">X</a>
+         <img src="${valueImg}" alt="" class="card__img" />
+         <p class="card__text">${valueName}</p>
+         </div>`;
+    let li = `<li id="${valueId}" class="card js_li_card">${content}</li>`;
+    let liFav = `<li id="${valueId}" class="card js_li_card favourite">${contentFav}</li>`;
 
-  //Si entra como favorito, pintará un contenido con clase favourite en el li
-  if (isFavourite) {
-    html +=  liFav;
-  } else {
-    html = li;
+    //Si entra como favorito, pintará un contenido con clase favourite en el li
+    if (isFavourite) {
+      html +=  liFav;
+    } else {
+      html = li;
+    }
+    return html;
   }
-  return html;
 }
 
 //Función para seleccionar favoritos
 
 function handleClick(event) {
+  
   //Al dar click en cualquier parte de la tarjeta:
   const id = parseInt(event.currentTarget.id);
   const selectedCharacter = listCharactersApi.find((item) => item._id === id);
   /*Para que no añada varias veces el mismo personaje a favoritos y lo quite si ya está añadido cuando la usuaria lo vuelve a clickar: */
-  const indexCharacter = listCharacterFavourites.findIndex(
-    (item) => item._id === id
-  );
+  const indexCharacter = listCharacterFavourites.findIndex((item) => item._id === id);
   if (indexCharacter === -1) {
     listCharacterFavourites.push(selectedCharacter);
   } else {
     listCharacterFavourites.splice(indexCharacter, 1);
   }
-  //Guardar favoritos en el LS para que al cargar la pág sigan ahí
+  //Guardar favoritos en el LS para que al recargar la pág sigan ahí
   localStorage.setItem('favCharacters', JSON.stringify(listCharacterFavourites));
   renderFavouritesList();
 }
@@ -132,6 +135,19 @@ function handleClickSearch (event) {
 searchBtn.addEventListener('click', handleClickSearch);
 
 //BONUS: Borrar favoritos
+
+// const deleteBtn = document.querySelector('.deleteX');
+
+// function handleDelete(event) {
+//   // const id = document.querySelector('')
+//   debugger;
+//   console.log('favorito');
+
+// }
+
+// deleteBtn.addEventListener('click', handleDelete);
+
+
 
 
 
