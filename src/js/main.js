@@ -1,12 +1,14 @@
 'use strict';
 
 const ulElement = document.querySelector('.js_character_list');
-const ulFavourites = document.querySelector('.favouriteList');
+const ulFavourites = document.querySelector('.js_character_fav');
 
 const url = 'https://api.disneyapi.dev/character';
 
 let listCharactersApi = [];
 let listCharacterFavourites = [];
+
+
 
 //Local Storage: traer elementos sin string
 const favLS = JSON.parse(localStorage.getItem('favCharacters'));
@@ -72,16 +74,14 @@ function renderCharacter(character, isFavourite) {
          </div>`;
   
   let li = `<li id="${valueId}" class="card js_li_card">${content}</li>`;
-  let liFav = `
-    <ul class="content__list js_character_fav"><li id="${valueId}" class="card js_li_card favourite">${content}</i></li></ul>`;
+  let liFav = `<li id="${valueId}" class="card js_li_card favourite">${content}</li>`;
 
   //Si entra como favorito, pintará un contenido con clase favourite en el li
   if (isFavourite) {
-    html = liFav;
+    html +=  liFav;
   } else {
     html = li;
   }
-
   return html;
 }
 
@@ -100,10 +100,8 @@ function handleClick(event) {
   } else {
     listCharacterFavourites.splice(indexCharacter, 1);
   }
-
   //Guardar favoritos en el LS para que al cargar la pág sigan ahí
   localStorage.setItem('favCharacters', JSON.stringify(listCharacterFavourites));
-
   renderFavouritesList();
 }
 
