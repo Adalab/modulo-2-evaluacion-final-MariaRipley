@@ -1,7 +1,6 @@
 .mainContent {
     display: flex;
     flex-direction: column;
-    // width: 90vw;
     align-items: center;
     font-family: 'Montserrat Alternates', sans-serif;
     padding-top: 5%;
@@ -19,25 +18,31 @@
     min-height: 200px;
     width: 90%;
         &__title {
-            // margin: 10px auto;
             text-align: center;
+            text-shadow: darkslategray 0 -2px;
+            padding: 5px;
         }
-                   &__list {
-                    // width: 100%;
-                       display: flex;
-                       flex-wrap: wrap;
-                       gap: 5px;
-                       justify-content: center;
-                   }
+        &__list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+       }
 }
 
 .content {
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    // margin: 10px;
+    border: 5px solid lightcyan;
+        border-radius: 10px;
+        padding: 5px;
+        color: lightcyan;
+        font-weight: 600;
+        width: 90%;
+        margin-top: 3%;
     &__title {
-        // margin: 10px auto;
         text-align: center;
     }
     &__list {
@@ -49,10 +54,9 @@
     }
 }
 .card {
-    width: 20%;
-    // max-width: 200px;
-    border: 1px solid red;
-    // height: 250px;
+    border: 1px solid lightcyan;
+    border-radius: 5px;
+    min-height: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,13 +66,11 @@
     cursor: pointer;
     &__img {
         width: 95%;
-        border: 1px solid;
         text-align: center;
         height: 80%;
     }
     &__text {
         width: 95%;
-        border: 1px solid;
         height: 15%;
         display: flex;
         justify-content: center;
@@ -88,11 +90,12 @@
 .favourite {
     display: flex;
     flex-wrap: wrap;
-    background-color: cadetblue;
-    color: darkslateblue;
+    background-color: white;
+    color: darkslategray;
     height: 180px;
     width: 100px;
-    
+    border: none;
+    margin: 5px;
 }
 
 .hidden {
