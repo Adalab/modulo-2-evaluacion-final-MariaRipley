@@ -1,16 +1,17 @@
 'use strict';
 
+//Variables globales
 const ulElement = document.querySelector('.js_character_list');
 const ulFavourites = document.querySelector('.favouriteList');
 
 const url = 'https://api.disneyapi.dev/character';
+let paginationUrl = 'https://api.disneyapi.dev/character?pageSize=50';
 
 let listCharactersApi = [];
 let listCharacterFavourites = [];
 
 //Local Storage: traer elementos sin string
 const favLS = JSON.parse(localStorage.getItem('favCharacters'));
-
 //Al cargar la página ya tengo los datos en el LS
 init();
 
@@ -29,7 +30,24 @@ fetch(url)
     console.log(data);
     listCharactersApi = data.data;
     renderCharacterList(listCharactersApi);
+    paginationUrl = data.next;
   });
+
+//Función para paginación
+
+function pagination() {
+  if(paginationUrl) {
+    fetch(paginationUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        listCharactersApi = listCharactersApi.concat(data.data);
+        renderCharacterList(listCharactersApi);
+        paginationUrl = data.next;
+      })
+  }
+}
+
+console.log(pagination);
 
 //Función para generar listado de tarjetas
 
