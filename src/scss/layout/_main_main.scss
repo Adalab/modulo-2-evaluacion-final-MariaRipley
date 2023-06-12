@@ -21,6 +21,7 @@
             text-align: center;
             text-shadow: darkslategray 0 -2px;
             padding: 5px;
+            font-size: 2rem;
         }
         &__list {
             display: flex;
@@ -44,6 +45,9 @@
         margin-top: 3%;
     &__title {
         text-align: center;
+        padding: 10px;
+        text-shadow: darkslategray 0 -2px;
+        font-size: 2rem;
     }
     &__list {
         display: flex;
