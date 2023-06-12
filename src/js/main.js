@@ -34,6 +34,7 @@ fetch(url)
 //Función para generar listado de tarjetas
 
 function renderCharacterList(listData) {
+  ulElement.innerHTML = '';
   const isFavourite = false;
   for (const character of listData) {
     ulElement.innerHTML += renderCharacter(character, isFavourite);
@@ -115,3 +116,19 @@ function renderFavouritesList() {
     ulFavourites.innerHTML += renderCharacter(characterFav, isFavourite);
   }
 }
+
+
+//BONUS: Búsqueda
+
+const searchInput = document.querySelector('.js_search_input');
+const searchBtn = document.querySelector('.js_search_btn');
+
+function handleClickSearch (event) {
+  event.preventDefault();
+  const searchInputValue = searchInput.value;
+  const filterList = listCharactersApi.filter((item) => 
+    item.name.toLowerCase().includes(searchInputValue.toLowerCase()));
+  renderCharacterList(filterList);
+}
+
+searchBtn.addEventListener('click', handleClickSearch);
