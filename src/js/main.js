@@ -70,10 +70,10 @@ function renderCharacter(character, isFavourite) {
          <img src="${valueImg}" alt="" class="card__img" />
          <p class="card__text">${valueName}</p>
          </div>`;
+  
   let li = `<li id="${valueId}" class="card js_li_card">${content}</li>`;
   let liFav = `
-    <h2 class="favouriteList__title">Favoritos</h2>
-    <ul class="content__list js_character_fav"><li id="${valueId}" class="card js_li_card favourite">${content}</li></ul>`;
+    <ul class="content__list js_character_fav"><li id="${valueId}" class="card js_li_card favourite">${content}</i></li></ul>`;
 
   //Si entra como favorito, pintará un contenido con clase favourite en el li
   if (isFavourite) {
@@ -132,3 +132,8 @@ function handleClickSearch (event) {
 }
 
 searchBtn.addEventListener('click', handleClickSearch);
+
+//BONUS: Borrar favoritos
+
+
+
