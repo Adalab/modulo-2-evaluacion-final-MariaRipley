@@ -57,36 +57,36 @@ function addEventCharacter() {
 
 function renderCharacter(character, isFavourite) {
   /*Si entra a null que no se cargue. Condición: si entra a null que no se cargue porque da error*/
-  if(character!==null) {
-    let valueImg = character.imageUrl;
-    const valueName = character.name;
-    const valueId = character._id;
-    const blankImg = 'https://via.placeholder.com/210x295/ffffff/555555/?text=Disney';
-    //Si no tiene valor de imagen colocará una por defecto:
-    if (!valueImg) {
-      valueImg = blankImg;
-    }
-
-    let html = '';
-    let content = `<div class="cardDiv">
-         <img src="${valueImg}" alt="" class="card__img" />
-         <p class="card__text">${valueName}</p>
-         </div>`;
-    let contentFav = `<div class="cardDiv"><a  class="deleteX">X</a>
-         <img src="${valueImg}" alt="" class="card__img" />
-         <p class="card__text">${valueName}</p>
-         </div>`;
-    let li = `<li id="${valueId}" class="card js_li_card">${content}</li>`;
-    let liFav = `<li id="${valueId}" class="card js_li_card favourite">${contentFav}</li>`;
-
-    //Si entra como favorito, pintará un contenido con clase favourite en el li
-    if (isFavourite) {
-      html +=  liFav;
-    } else {
-      html = li;
-    }
-    return html;
+  // if(character!==null) {
+  let valueImg = character.imageUrl;
+  const valueName = character.name;
+  const valueId = character._id;
+  const blankImg = 'https://via.placeholder.com/210x295/ffffff/555555/?text=Disney';
+  //Si no tiene valor de imagen colocará una por defecto:
+  if (!valueImg) {
+    valueImg = blankImg;
   }
+
+  let html = '';
+  let content = `<div class="cardDiv">
+         <img src="${valueImg}" alt="" class="card__img" />
+         <p class="card__text">${valueName}</p>
+         </div>`;
+  let contentFav = `<div class="cardDiv"><a id="${valueId}" class="deleteX">X</a>
+         <img src="${valueImg}" alt="" class="card__img" />
+         <p class="card__text">${valueName}</p>
+         </div>`;
+  let li = `<li id="${valueId}" class="card js_li_card">${content}</li>`;
+  let liFav = `<li class="card favourite">${contentFav}</li>`;
+
+  //Si entra como favorito, pintará un contenido con clase favourite en el li
+  if (isFavourite) {
+    html +=  liFav;
+  } else {
+    html = li;
+  }
+  return html;
+  // }
 }
 
 //Función para seleccionar favoritos
@@ -116,6 +116,7 @@ function renderFavouritesList() {
   for (const characterFav of listCharacterFavourites) {
     ulFavourites.innerHTML += renderCharacter(characterFav, isFavourite);
   }
+  addEventDelete();
 }
 
 
@@ -135,18 +136,16 @@ function handleClickSearch (event) {
 searchBtn.addEventListener('click', handleClickSearch);
 
 //BONUS: Borrar favoritos
+//Uno a uno con la X
 
-// const deleteBtn = document.querySelector('.deleteX');
+function addEventDelete() {
+  const deleteXList = document.querySelectorAll('.deleteX');
+  for (const deleteX of deleteXList) {
+    deleteX.addEventListener('click', handleClick);
+  }
+}
 
-// function handleDelete(event) {
-//   // const id = document.querySelector('')
-//   debugger;
-//   console.log('favorito');
-
-// }
-
-// deleteBtn.addEventListener('click', handleDelete);
-
+//Todos con botón 'Eliminar todos'
 
 
 
