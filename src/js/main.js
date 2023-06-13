@@ -21,10 +21,6 @@ function init() {
   if(favLS) {
     listCharacterFavourites = favLS;
     renderFavouritesList(listCharacterFavourites);
-  //Si no hay datos en favoritos, lista vacía (no pinta nada)
-  } else {
-    listCharacterFavourites = [];
-    renderFavouritesList(listCharacterFavourites);
   }
 }
 
@@ -44,7 +40,7 @@ function renderCharacterList(listData) {
   ulElement.innerHTML = '';
   const isFavourite = false;
   for (const character of listData) {
-    ulElement.innerHTML += renderCharacter(character, isFavourite);
+    ulElement.appendChild (renderCharacter(character, isFavourite));
   }
   addEventCharacter();
 }
@@ -72,25 +68,65 @@ function renderCharacter(character, isFavourite) {
       valueImg = blankImg;
     }
 
-    let html = '';
-    let content = `<div class="cardDiv">
-         <img src="${valueImg}" alt="" class="card__img" />
-         <p class="card__text">${valueName}</p>
-         </div>`;
-    let contentFav = `<div class="cardDiv"><a id="${valueId}" class="deleteX">X</a>
-         <img src="${valueImg}" alt="" class="card__img" />
-         <p class="card__text">${valueName}</p>
-         </div>`;
-    let li = `<li id="${valueId}" class="card js_li_card">${content}</li>`;
-    let liFav = `<li class="card favourite">${contentFav}</li>`;
+    //Crear elementos para Personajes
 
-    //Si entra como favorito, pintará un contenido con clase favourite en el li
+    const textCharacter = document.createElement('p');
+    textCharacter.setAttribute('class', 'card__text');
+    const textCharacterContent = document.createTextNode(`${valueName}`);
+    textCharacter.appendChild(textCharacterContent);
+    
+    const imgCharacter = document.createElement('img');
+    imgCharacter.src = `${valueImg}`;
+    imgCharacter.alt = `Imagen de un personaje Disney`;
+    imgCharacter.setAttribute('class', 'card__img');
+    
+    const contentCharacter = document.createElement('div');
+    contentCharacter.setAttribute('class', 'cardDiv');
+    contentCharacter.appendChild(imgCharacter);
+    contentCharacter.appendChild(textCharacter);
+
+    const liCharacterElement = document.createElement('li');
+    liCharacterElement.id = `${valueId}`;
+    liCharacterElement.setAttribute('class', 'card js_li_card');
+
+    liCharacterElement.appendChild(contentCharacter);
+
+    //Crear elementos para Favoritos
+
+    const textFavourite = document.createElement('p');
+    textFavourite.setAttribute('class', 'card__text');
+    const textFavouriteContent = document.createTextNode(`${valueName}`);
+    textFavourite.appendChild(textFavouriteContent);
+
+    const xFav = document.createElement('a');
+    xFav.id = `${valueId}`;
+    xFav.setAttribute('class', 'deleteX');
+    const xFavContent = document.createTextNode('X');
+    xFav.appendChild(xFavContent);
+
+    const imgFavourite = document.createElement('img');
+    imgFavourite.src = `${valueImg}`;
+    imgFavourite.alt = `Imagen de un personaje Disney`;
+    imgFavourite.setAttribute('class', 'card__img');
+
+    const contentFavourite = document.createElement('div');
+    contentFavourite.setAttribute('class', 'cardDiv');
+    contentFavourite.appendChild(xFav);
+    contentFavourite.appendChild(imgFavourite);
+    contentFavourite.appendChild(textFavourite);
+
+    const liFavouriteElement = document.createElement('li');
+    liFavouriteElement.setAttribute('class', 'card favourite');
+
+    liFavouriteElement.appendChild(contentFavourite);
+
+    //Lo que retornará según si entra como favorito o no
+
     if (isFavourite) {
-      html +=  liFav;
+      return liFavouriteElement;
     } else {
-      html = li;
+      return liCharacterElement;
     }
-    return html;
   }
 }
 
@@ -119,7 +155,7 @@ function renderFavouritesList() {
   ulFavourites.innerHTML = '';
   const isFavourite = true;
   for (const characterFav of listCharacterFavourites) {
-    ulFavourites.innerHTML += renderCharacter(characterFav, isFavourite);
+    ulFavourites.appendChild (renderCharacter(characterFav, isFavourite)) ;
   }
   addEventDelete();
   
@@ -157,10 +193,8 @@ const deleteButton = document.querySelector('.js_deleteAll');
 
 function handleDeleteAll() {
   localStorage.clear();
-  init();
+  listCharacterFavourites = [];
+  renderFavouritesList();
 }
 
 deleteButton.addEventListener('click', handleDeleteAll);
-
-
-
