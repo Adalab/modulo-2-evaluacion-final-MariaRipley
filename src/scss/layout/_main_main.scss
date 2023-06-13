@@ -10,6 +10,10 @@
 }
 
 .favouriteList {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
     border: 5px solid lightcyan;
     border-radius: 10px;
     padding: 5px;
@@ -29,6 +33,17 @@
             gap: 5px;
             justify-content: center;
        }
+        &__delBtn {
+            font-family: 'Montserrat Alternates', sans-serif;
+            color: crimson;
+            background-color: rgb(249, 203, 203);
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            padding: 5px 10px;
+            align-self: flex-end;
+            position: absolute;
+        }
 }
 
 .content {
@@ -54,7 +69,6 @@
         flex-wrap: wrap;
         gap: 5px;
         justify-content: center;
-        
     }
 }
 .card {

@@ -3,7 +3,7 @@
 const ulElement = document.querySelector('.js_character_list');
 const ulFavourites = document.querySelector('.js_character_fav');
 
-const url = 'https://dev.adalab.es/api/disney?pageSize=15';
+const url = 'https://api.disneyapi.dev/character?pageSize=50';
 
 let listCharactersApi = [];
 let listCharacterFavourites = [];
@@ -17,8 +17,13 @@ const favLS = JSON.parse(localStorage.getItem('favCharacters'));
 init();
 
 function init() {
+  //Si hay datos en favoritos, los pinta en la lista
   if(favLS) {
     listCharacterFavourites = favLS;
+    renderFavouritesList(listCharacterFavourites);
+  //Si no hay datos en favoritos, lista vacía (no pinta nada)
+  } else {
+    listCharacterFavourites = [];
     renderFavouritesList(listCharacterFavourites);
   }
 }
@@ -57,36 +62,36 @@ function addEventCharacter() {
 
 function renderCharacter(character, isFavourite) {
   /*Si entra a null que no se cargue. Condición: si entra a null que no se cargue porque da error*/
-  // if(character!==null) {
-  let valueImg = character.imageUrl;
-  const valueName = character.name;
-  const valueId = character._id;
-  const blankImg = 'https://via.placeholder.com/210x295/ffffff/555555/?text=Disney';
-  //Si no tiene valor de imagen colocará una por defecto:
-  if (!valueImg) {
-    valueImg = blankImg;
-  }
+  if(character!==null) {
+    let valueImg = character.imageUrl;
+    const valueName = character.name;
+    const valueId = character._id;
+    const blankImg = 'https://via.placeholder.com/210x295/ffffff/555555/?text=Disney';
+    //Si no tiene valor de imagen colocará una por defecto:
+    if (!valueImg) {
+      valueImg = blankImg;
+    }
 
-  let html = '';
-  let content = `<div class="cardDiv">
+    let html = '';
+    let content = `<div class="cardDiv">
          <img src="${valueImg}" alt="" class="card__img" />
          <p class="card__text">${valueName}</p>
          </div>`;
-  let contentFav = `<div class="cardDiv"><a id="${valueId}" class="deleteX">X</a>
+    let contentFav = `<div class="cardDiv"><a id="${valueId}" class="deleteX">X</a>
          <img src="${valueImg}" alt="" class="card__img" />
          <p class="card__text">${valueName}</p>
          </div>`;
-  let li = `<li id="${valueId}" class="card js_li_card">${content}</li>`;
-  let liFav = `<li class="card favourite">${contentFav}</li>`;
+    let li = `<li id="${valueId}" class="card js_li_card">${content}</li>`;
+    let liFav = `<li class="card favourite">${contentFav}</li>`;
 
-  //Si entra como favorito, pintará un contenido con clase favourite en el li
-  if (isFavourite) {
-    html +=  liFav;
-  } else {
-    html = li;
+    //Si entra como favorito, pintará un contenido con clase favourite en el li
+    if (isFavourite) {
+      html +=  liFav;
+    } else {
+      html = li;
+    }
+    return html;
   }
-  return html;
-  // }
 }
 
 //Función para seleccionar favoritos
@@ -117,6 +122,7 @@ function renderFavouritesList() {
     ulFavourites.innerHTML += renderCharacter(characterFav, isFavourite);
   }
   addEventDelete();
+  
 }
 
 
@@ -147,6 +153,14 @@ function addEventDelete() {
 
 //Todos con botón 'Eliminar todos'
 
+const deleteButton = document.querySelector('.js_deleteAll');
+
+function handleDeleteAll() {
+  localStorage.clear();
+  init();
+}
+
+deleteButton.addEventListener('click', handleDeleteAll);
 
 
 
